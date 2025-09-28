@@ -5,7 +5,7 @@
 #######################################################################
 
 ## 0. Housekeeping ----
-rm(list = ls()) #Clean everthing
+rm(list = ls())
 
 ## 1. Importing data ----
 

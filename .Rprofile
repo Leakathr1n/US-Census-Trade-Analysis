@@ -21,11 +21,12 @@ if (!dir.exists("Archive")) dir.create("Archive")
 
 
 # Loading libraries
-library(jsonlite) # PURPOSE
-library(glue) # PURPOSE
-library(writexl) # PURPOSE
-library(dplyr) # PURPOSE
-library(readxl) # PURPOSE
+library(jsonlite) # handling data in JSON format
+library(glue) # constructing paths, variable names etc.
+library(writexl) # Exporting excel sheets
+library(dplyr) # cleaning and working with data frames
+library(readxl) # Reading excel sheets
+library(ggplot2) #graphics
 
 
 
