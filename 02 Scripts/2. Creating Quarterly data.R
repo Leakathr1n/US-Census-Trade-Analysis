@@ -4,14 +4,6 @@
 # Date: 28/09/2025
 #######################################################################
 
-# In this file, we work with monthly trade data
-# 1. Clean the data for countries as trade partners only
-# 2. We create quarterly data
-# 3. We are looking for the top 5 commodities according to HS2 codes, where Canada and Mexico are the strongest importers according to USD value
-# 4. We collect those 5 commodities and other strong (5) importing countries. The rest will be summarised as ROW
-# 5. We calculate shares to show absolute and relative "import dependence"
-# 6. We display data in stacked bar charts
-
 ## 0. Housekeeping ----
 rm(list = ls())
 

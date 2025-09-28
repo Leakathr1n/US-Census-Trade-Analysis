@@ -39,6 +39,7 @@ library(ggplot2) #graphics
 
 
 
+
 ## Graphic Options
 options(scipen = 999) # disable scientific notation for graphics later
 

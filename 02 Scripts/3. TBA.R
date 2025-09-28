@@ -1,15 +1,23 @@
-#############################################################
-# 3. Creating Top 5 HS codes for selected coutnries
-#############################################################
+########################################################################
+# Title: 2. Creating Top 5 
+# Author: Lea Roeller
+# Date: 28/09/2025
+#######################################################################
 
-#More countries can simply be added to this list
-countries <- c("CANADA", "MEXICO")
+## 0. Housekeeping ----
+rm(list = ls())
+
+## 1. Importing the data ---- 
+load("01 RDS/US Census Quarterly.RData")
+
+## 2. Creating Top 5 HS codes ----
+
+countries <- c("CANADA", "MEXICO") # more countries can simply be added to this list
 
 for (c in countries) {
-  
-  #let's create the top 5 categories for Canada
+
   top5 <- final_data %>%
-    filter(CTY_NAME == "CANADA") %>%
+    filter(CTY_NAME == c) %>% # filter for country
     group_by(YEAR, I_COMMODITY) %>%
     summarise(TOTAL_GEN_VAL_MO = sum(TOTAL_GEN_VAL_MO, na.rm = TRUE), .groups = "drop") %>%
     group_by(YEAR) %>%
@@ -23,8 +31,7 @@ for (c in countries) {
   #let's create the top 5
   country <- country %>%
     group_by(YEAR, QUARTER, I_COMMODITY) %>%
-    # Select top 6 countries
-    slice_max(order_by = TOTAL_GEN_VAL_MO, n = 6, with_ties = FALSE) %>%
+    slice_max(order_by = TOTAL_GEN_VAL_MO, n = 6, with_ties = FALSE) %>% # Select top 6 countries
     ungroup()
   
   # Compute ROW values for Canada
@@ -46,18 +53,18 @@ for (c in countries) {
   country <- bind_rows(country, data_with_ROW)
   
   # Save the data set as Excel
-  write_xlsx(country, paste0("Output/2. Top_", c,".xlsx"))
+  #write_xlsx(country, paste0("Output/2. Top_", c,".xlsx"))
   
   #construct data set name & store data there
   assign(paste0("Top_", c), country)
   
   rm(top5, data_with_ROW, country)
   
-  
-  
 }
 
 rm(final_data)
+
+
 
 
 #############################################################
