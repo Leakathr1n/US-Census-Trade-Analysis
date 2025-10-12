@@ -16,7 +16,7 @@ load("01 RDS/US Census Monthly.RData")
 # CTY_CODE: 00XX = represents country groupings, e.g. NATO, APEC, EU etc.
 # CTY_CODE: 1XXX - 7XXX = represents the continents
 
-full_imports <- full_imports %>% filter(!(grepl("^00\\d{2}$", CTY_CODE)| grepl("^[1-7]\\XXX", CTY_CODE)))
+full_imports <- full_imports %>% filter(!(grepl("^00\\d{2}$", CTY_CODE)| grepl("^[1-7]\\d{3}", CTY_CODE)))
 
 ## 2. Creating quarterly data ---- 
 

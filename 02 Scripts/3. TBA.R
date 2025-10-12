@@ -34,7 +34,7 @@ for (c in countries) {
     slice_max(order_by = TOTAL_GEN_VAL_MO, n = 6, with_ties = FALSE) %>% # Select top 6 countries
     ungroup()
   
-  # Compute ROW values for Canada
+  # Compute ROW values
   data_with_ROW <- country %>%
     group_by(YEAR, QUARTER, I_COMMODITY,I_COMMODITY_LDESC,) %>%
     summarise(
