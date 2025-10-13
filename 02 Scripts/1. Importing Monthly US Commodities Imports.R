@@ -41,4 +41,4 @@ full_imports <-do.call(rbind,full_imports) #bind it all together
 
 ## 2. Exporting data ----
 
-save(full_imports, file = "01 RDS/US Census Monthly.RData")
+save(full_imports, file = "01 RDS/US Census Monthly.rds")
