@@ -1,0 +1,3 @@
+These graphics were generated to analyse the main importers for specific products at the HS2 level. The goal was to identify patterns in trade flows and, where possible, anticipate which HS codes could be affected in the next round of US tariffs.
+
+Please note that the original graphics were produced using the UN DESA WESP 2025 colour palette and the UN-specific ggplot theme, which are intended for internal UN use. For replication purposes, the charts here use a distinct colour assigned to each country for the Top 5 analysis, ensuring consistent representation across all graphics. As the analysis involves many different countries, a variety of colours was used to allow clear identification of each country while maintaining readability.

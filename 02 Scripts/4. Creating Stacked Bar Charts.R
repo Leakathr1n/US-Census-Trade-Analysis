@@ -52,33 +52,58 @@ for (c in countries) {
   for (HS_code in unique(Top_c$I_COMMODITY)) {
     data_subset <- Top_c  %>% filter(I_COMMODITY == HS_code) # Filter data for the current HS code
     
-    # Sort countries by total share per quarter (ensuring largest at bottom)
-    sorted_countries <- data_subset %>%
+    # Exclude ROW when sorting
+    other_countries <- data_subset %>%
+      filter(CTY_NAME != "ROW") %>%
       group_by(CTY_NAME) %>%
-      summarise(TOTAL_SHARE = sum(SHARE, na.rm = TRUE)) %>%
-      arrange(TOTAL_SHARE) %>%
+      summarise(TOTAL_SHARE = sum(SHARE, na.rm = TRUE), .groups = "drop") %>%
+      arrange(TOTAL_SHARE) %>%  # smallest first → lowest on stack
       pull(CTY_NAME)
+    sorted_countries <- c(other_countries, "ROW") # Combine ROW at the bottom
+    data_subset$CTY_NAME <- factor(data_subset$CTY_NAME, levels = sorted_countries) # Apply factor levels
     
-    # Create the stacked bar chart
+    data_subset <- data_subset %>% mutate(Facet_Label = paste0("HS ", I_COMMODITY, ": ", I_COMMODITY_SDESC))  # Create a new column for facet labels
+    
+    # Plot
     p <- ggplot(data_subset, aes(x = YEAR_QUARTER, y = SHARE, 
-                                 fill = factor(CTY_NAME, levels = names(color_mapping)))) +
-      geom_bar(stat = "identity", position = "stack") +  # Stacked bars
-      facet_wrap(~ I_COMMODITY_SDESC, scales = "free_y") +  # One plot per commodity description
+                                 fill = factor(CTY_NAME, levels = sorted_countries))) +
+      geom_bar(stat = "identity", position = "stack") +
+      facet_wrap(~ Facet_Label, scales = "free_y") +   # use the new facet label
       labs(
-        title = "Main Trade Partners of the US",
+        title = "Main Importers to the US",
         x = "",
-        y = "Share of Total Trade",
+        y = "Share of Total Imports in %",
         fill = ""
       ) +
       scale_fill_manual(values = color_mapping) +
-      # my_theme +  # Apply your custom theme
       theme(
-        legend.position = "bottom",         # Move legend below
-        legend.justification = "center",    # Center the legend
-        legend.direction = "horizontal",    # Arrange legend items in a row
-        legend.box = "horizontal"           # Ensures legend stays horizontal
+        # Overall background
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA),
+        panel.grid.major = element_line(color = "grey90", size = 0.4, linetype = "dashed"),
+        panel.grid.minor = element_line(),
+        
+        # Plot title
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+        
+        # Axis text and ticks
+        axis.text.x = element_text(color = "black", hjust = 0.5),
+        axis.text.y = element_text(color = "black"),
+        axis.ticks = element_blank(), # remove the ticks
+        axis.title.x = element_blank(),  # remove x-axis title
+        axis.title.y = element_text(color = "black", face = "bold"),  # keep y-axis title
+        
+        # Legend
+        legend.position = "bottom",
+        legend.justification = "center",
+        legend.direction = "horizontal",
+        legend.box = "horizontal",
+        
+        # Facets
+        strip.background = element_blank(),   # remove box around facet
+        strip.text = element_text(face = "bold", hjust = 0.5)
       )
-
+    
     ggsave(paste0("03 Outputs/4. Stacked Bar Charts per HS Code/", c, "/", c,"_Top5_HS", HS_code, ".png"), plot = p, width = 8, height = 5) # Save the plot
   }
 }
