@@ -34,7 +34,7 @@ full_imports <- full_imports %>% mutate(GEN_VAL_MO = as.numeric(GEN_VAL_MO)) #en
 
 full_imports <- full_imports %>%
   mutate(QUARTER = get_quarter(MONTH)) %>% ## call the function and assign quarters accordingly
-  group_by(YEAR, QUARTER, I_COMMODITY, I_COMMODITY_LDESC, CTY_CODE, CTY_NAME) %>%  # now group by quarters
+  group_by(YEAR, QUARTER, I_COMMODITY, I_COMMODITY_LDESC, I_COMMODITY_SDESC, CTY_CODE, CTY_NAME) %>%  # now group by quarters
   summarise(TOTAL_GEN_VAL_MO = sum(GEN_VAL_MO, na.rm = TRUE), .groups = "drop") # sum up 
 
 ## 3. Exporting data ----

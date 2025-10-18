@@ -14,8 +14,6 @@ if (!dir.exists("Archive")) dir.create("Archive")
 
 
 
-
-
 ## Libraries ----
 # Installing libraries that are not installed yet 
 
@@ -28,16 +26,14 @@ library(readxl) # Reading excel sheets
 library(ggplot2) #graphics
 library(dplyr) # cleaning and working with data frames
 
-## Functions ----
-
-# Useful (longer) functions
-
-
+detach("package:dplyr", unload = TRUE) # putting the dyplr library before stats so that we can filter properly
+library(dplyr, warn.conflicts = FALSE)
+# search()
 
 
 
 
-## Graphic Options
+## Graphic Options ----
 options(scipen = 999) # disable scientific notation for graphics later
 
 

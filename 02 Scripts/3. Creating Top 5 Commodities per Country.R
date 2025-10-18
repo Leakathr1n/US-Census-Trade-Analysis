@@ -37,7 +37,7 @@ for (c in countries) {
 #2.3 Computing the ROW values ---- 
   
   data_with_ROW <- country %>%
-    group_by(YEAR, QUARTER, I_COMMODITY,I_COMMODITY_LDESC,) %>%
+    group_by(YEAR, QUARTER, I_COMMODITY,I_COMMODITY_LDESC, I_COMMODITY_SDESC) %>%
     summarise(
       TOTAL_ALL_COUNTRIES = sum(TOTAL_GEN_VAL_MO[CTY_CODE == "-"], na.rm = TRUE),  # Get total
       TOTAL_OTHERS = sum(TOTAL_GEN_VAL_MO[CTY_CODE != "-"], na.rm = TRUE),  # Sum all except "-"
@@ -48,7 +48,7 @@ for (c in countries) {
       CTY_NAME = "ROW", # give it a new name
       TOTAL_GEN_VAL_MO = TOTAL_ALL_COUNTRIES - TOTAL_OTHERS  # ROW = Total - Others
     ) %>%
-    select(YEAR, QUARTER, I_COMMODITY, I_COMMODITY_LDESC, CTY_CODE, CTY_NAME, TOTAL_GEN_VAL_MO)
+    select(YEAR, QUARTER, I_COMMODITY, I_COMMODITY_LDESC, I_COMMODITY_SDESC, CTY_CODE, CTY_NAME, TOTAL_GEN_VAL_MO)
   
   country <- bind_rows(country, data_with_ROW) # Append the ROW data to the original summaries
   
