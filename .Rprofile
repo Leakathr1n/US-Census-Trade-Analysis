@@ -1,4 +1,4 @@
-# Title: RProfile for Coding Sample to be submitted to Pre-Doc Position XXXXXX
+# Title: US Census Trade Analysis
 # Author: Lea Röller
 # Date: 28. September 2025
 # Last date modified: mentioned next to added code snippets
