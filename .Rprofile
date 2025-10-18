@@ -25,6 +25,7 @@ library(writexl) # Exporting excel sheets
 library(readxl) # Reading excel sheets
 library(ggplot2) #graphics
 library(dplyr) # cleaning and working with data frames
+library(tidyr) # re-shaping data
 
 detach("package:dplyr", unload = TRUE) # putting the dyplr library before stats so that we can filter properly
 library(dplyr, warn.conflicts = FALSE)
