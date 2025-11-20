@@ -18,7 +18,7 @@ graphic_colours <- c(
   "#0072B2", # blue
   "#D55E00", # vermillion
   "#CC79A7", # reddish purple
-  "#999999", # grey
+  # "#999999", # grey
   "#66CCEE", # light blue
   "#882255", # dark pink/purple
   "#44AA99", # teal

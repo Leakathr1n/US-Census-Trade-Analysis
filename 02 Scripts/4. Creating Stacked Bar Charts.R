@@ -59,10 +59,14 @@ for (c in countries) {
       summarise(TOTAL_SHARE = sum(SHARE, na.rm = TRUE), .groups = "drop") %>%
       arrange(TOTAL_SHARE) %>%  # smallest first → lowest on stack
       pull(CTY_NAME)
+    
     sorted_countries <- c(other_countries, "ROW") # Combine ROW at the bottom
     data_subset$CTY_NAME <- factor(data_subset$CTY_NAME, levels = sorted_countries) # Apply factor levels
     
+    legend_order <- c(sort(setdiff(unique(data_subset$CTY_NAME), "ROW")), "ROW")
+    color_mapping_ordered <- color_mapping[legend_order]
     data_subset <- data_subset %>% mutate(Facet_Label = paste0("HS ", I_COMMODITY, ": ", I_COMMODITY_SDESC))  # Create a new column for facet labels
+    
     
     # Plot
     p <- ggplot(data_subset, aes(x = YEAR_QUARTER, y = SHARE, 
@@ -75,7 +79,7 @@ for (c in countries) {
         y = "Share of Total Imports in %",
         fill = ""
       ) +
-      scale_fill_manual(values = color_mapping) +
+      scale_fill_manual(values = color_mapping_ordered, breaks = legend_order) +
       theme(
         # Overall background
         plot.background = element_rect(fill = "white", color = NA),
